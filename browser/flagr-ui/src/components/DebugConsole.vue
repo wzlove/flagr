@@ -1,13 +1,13 @@
 <template>
   <el-card class="dc-container">
     <div slot="header" class="el-card-header">
-      <h2>Debug Console</h2>
+      <h2>{{ $t('debugConsole.title') }}</h2>
     </div>
     <el-collapse>
-      <el-collapse-item title="Evaluation">
+      <el-collapse-item :title="$t('debugConsole.evaluation')">
         <el-row :gutter="10">
           <el-col :span="5">
-            <span>Request</span>
+            <span>{{ $t('debugConsole.request') }}</span>
           </el-col>
           <el-col :span="7" class="evaluation-button-col">
             <el-button
@@ -18,7 +18,7 @@
             >POST /api/v1/evaluation</el-button>
           </el-col>
           <el-col :span="6">
-            <span>Response</span>
+            <span>{{ $t('debugConsole.response') }}</span>
           </el-col>
         </el-row>
         <el-row :gutter="10">
@@ -41,10 +41,10 @@
         </el-row>
       </el-collapse-item>
 
-      <el-collapse-item title="Batch Evaluation">
+      <el-collapse-item :title="$t('debugConsole.batchEvaluation')">
         <el-row :gutter="10">
           <el-col :span="5">
-            <span>Request</span>
+            <span>{{ $t('debugConsole.request') }}</span>
           </el-col>
           <el-col :span="7" class="evaluation-button-col">
             <el-button
@@ -55,7 +55,7 @@
             >POST /api/v1/evaluation/batch</el-button>
           </el-col>
           <el-col :span="6">
-            <span>Response</span>
+            <span>{{ $t('debugConsole.response') }}</span>
           </el-col>
         </el-row>
         <el-row :gutter="10">
@@ -132,22 +132,22 @@ export default {
     postEvaluation(evalContext) {
       Axios.post(`${API_URL}/evaluation`, evalContext).then(
         response => {
-          this.$message.success(`evaluation success`);
+          this.$message.success(this.$t('debugConsole.evaluationSuccess'));
           this.evalResult = response.data;
         },
         () => {
-          this.$message.error(`evaluation error`);
+          this.$message.error(this.$t('debugConsole.evaluationError'));
         }
       );
     },
     postEvaluationBatch(batchEvalContext) {
       Axios.post(`${API_URL}/evaluation/batch`, batchEvalContext).then(
         response => {
-          this.$message.success(`evaluation success`);
+          this.$message.success(this.$t('debugConsole.evaluationSuccess'));
           this.batchEvalResult = response.data;
         },
         () => {
-          this.$message.error(`evaluation error`);
+          this.$message.error(this.$t('debugConsole.evaluationError'));
         }
       );
     }

@@ -14,7 +14,7 @@
         <el-input
           type="textarea"
           :rows="12"
-          placeholder="Please input"
+          :placeholder="$t('markdownEditor.placeholder')"
           v-model="input"
           @change="syncMarkdown"
         ></el-input>
@@ -69,4 +69,3 @@ export default {
   padding: 0.5rem;
 }
 </style>
-

@@ -5,9 +5,9 @@
         <el-row>
           <el-col :span="14">
             <div class="diff-snapshot-id-change">
-              <el-tag :disable-transitions="true">Snapshot ID: {{ diff.oldId }}</el-tag>
+              <el-tag :disable-transitions="true">{{ $t('history.snapshotId') }} {{ diff.oldId }}</el-tag>
               <span class="el-icon-d-arrow-right" />
-              <el-tag :disable-transitions="true">Snapshot ID: {{ diff.newId }}</el-tag>
+              <el-tag :disable-transitions="true">{{ $t('history.snapshotId') }} {{ diff.newId }}</el-tag>
             </div>
           </el-col>
           <el-col :span="10" style="text-align: right; color: #2e4960">
@@ -15,7 +15,7 @@
               <span size="small">{{ diff.timestamp }}</span>
             </div>
             <div class="compact" v-if="diff.updatedBy">
-              <span size="small">UPDATED BY: {{ diff.updatedBy }}</span>
+              <span size="small">{{ $t('history.updatedBy') }} {{ diff.updatedBy }}</span>
             </div>
           </el-col>
         </el-row>
@@ -65,7 +65,7 @@ export default {
           this.flagSnapshots = response.data;
         },
         () => {
-          this.$message.error(`failed to get flag snapshots`);
+          this.$message.error(this.$t('history.failedToGetSnapshots'));
         }
       );
     },
@@ -74,7 +74,7 @@ export default {
       const n = JSON.parse(JSON.stringify(newFlag));
       const d = diffJson(o, n);
       if (d.length === 1) {
-        return "No changes";
+        return this.$t('history.noChanges');
       }
       return convertChangesToXML(d);
     }

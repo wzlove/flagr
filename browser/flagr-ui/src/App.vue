@@ -7,21 +7,32 @@
             <el-col :span="6">
               <router-link :to="{ name: 'home' }">
                 <div class="logo-container">
-                  <h3 class="logo">Flagr</h3>
+                  <h3 class="logo">{{ $t('app.title') }}</h3>
                   <div>
                     <span class="version">v{{ version }}</span>
                   </div>
                 </div>
               </router-link>
             </el-col>
-            <el-col :span="1" :offset="15">
+            <el-col :span="1" :offset="13">
+              <el-dropdown @command="changeLanguage" class="language-dropdown">
+                <span class="el-dropdown-link">
+                  {{ $t('app.language') }}<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="en">{{ $t('app.english') }}</el-dropdown-item>
+                  <el-dropdown-item command="zh-CN">{{ $t('app.chinese') }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </el-col>
+            <el-col :span="1">
               <a href="https://openflagr.github.io/flagr/api_docs" target="_blank"
-                ><h3>API</h3></a
+                ><h3>{{ $t('app.api') }}</h3></a
               >
             </el-col>
-            <el-col :span="1" :offset="1">
+            <el-col :span="1">
               <a href="https://openflagr.github.io/flagr" target="_blank"
-                ><h3>Docs</h3></a
+                ><h3>{{ $t('app.docs') }}</h3></a
               >
             </el-col>
           </el-row>
@@ -41,6 +52,13 @@ export default {
   data: () => ({
     version,
   }),
+  methods: {
+    changeLanguage(lang) {
+      this.$i18n.locale = lang;
+      localStorage.setItem('flagr-language', lang);
+      this.$message.success(lang === 'zh-CN' ? '已切换为中文' : 'Switched to English');
+    }
+  }
 };
 </script>
 
@@ -106,6 +124,13 @@ ol {
 
       &:first-child {
         text-align: left;
+      }
+    }
+
+    .language-dropdown {
+      cursor: pointer;
+      .el-dropdown-link {
+        color: #2e4960;
       }
     }
   }
